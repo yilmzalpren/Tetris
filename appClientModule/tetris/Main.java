@@ -8,6 +8,10 @@ public class Main {
     private final static int KEYCODE_A = 65 ; 
     private final static int KEYCODE_D = 68 ; 
     private final static int KEYCODE_S = 83 ;
+    private final static int radiusOfShapes = 5 ;
+    private final static double horizontolVelocity = .2 ; 
+    private final static double verticalVelocity = .2  ;
+    //---------------------------------------
     
     public static void main(String[] args) {
         // x and y coordinates have been initialized.
@@ -26,38 +30,40 @@ public class Main {
         */
         
         // radius for shapes.
-        double radius = .05 ;                       // the thing we create feature , we define radius of this things.
+                               // the thing we create feature , we define radius of this things.
         
         // coordinate x and coordinate y for where thing will be created in screen.
         double c_x = 50.0 ;                           // in coordinate 0 things will be created.
-        double c_y = 100.0 - radius ;                 // in coordinate (1.0-.05) things will be created.
+        double c_y = 100.0 - radiusOfShapes ;                 // in coordinate (1.0-.05) things will be created.
         
         
         
         
         
+       
         while(true){ 
             
-            while(c_y > (-1.0 + radius)){
+            while(c_y > (0.0 + radiusOfShapes)){
                 
                 // in order to use this instruction is create square.
-                StdDraw.filledSquare(c_x, c_y, radius);
+                StdDraw.filledSquare(c_x, c_y, radiusOfShapes);
                 
                 // we describe it in above section, because of using this instructions 
                 // we use doublebuffering.
+                setScreenGrid();
                 StdDraw.show();
                 
-                if(StdDraw.isKeyPressed(KEYCODE_A) && (c_x > (-1.0 + radius))){
-                    c_x -= .002 ; 
+                if(StdDraw.isKeyPressed(KEYCODE_A) && (c_x > (0.0 + radiusOfShapes))){
+                    c_x -= horizontolVelocity ; 
                 }
-                if(StdDraw.isKeyPressed(KEYCODE_D) && (c_x < (1.0 - radius))){
-                    c_x += .002 ; 
+                if(StdDraw.isKeyPressed(KEYCODE_D) && (c_x < (100.0 - radiusOfShapes))){
+                    c_x += horizontolVelocity ; 
                 }
-                if(StdDraw.isKeyPressed(KEYCODE_S) && c_y > (-1.0 + radius)){
-                    c_y -=.004 ; 
+                if(StdDraw.isKeyPressed(KEYCODE_S) && c_y > (0.0 + radiusOfShapes)){
+                    c_y -=2*verticalVelocity ; 
                 }
-                else{
-                   c_y -= .002 ; 
+                else {
+                   c_y -= verticalVelocity ; 
                 }
                 
                
@@ -66,11 +72,11 @@ public class Main {
             }
             
             // we restart the position of shape
-            c_x = .0 ; 
-            c_y = 1.0 - radius ; 
-            setRandomPenColor();
+            c_x = 50.0 ; 
+            c_y = 100.0 - radiusOfShapes ; 
+           
         }
-        
+      
     }
     private static void setRandomPenColor(){
         // Random number for which color will be used for pen color.
@@ -97,6 +103,14 @@ public class Main {
              
         }
         
+    }
+    private static void setScreenGrid() {
+    	StdDraw.setPenColor(StdDraw.BLACK);
+    	for(int i= 0 ; i<10 ; ++i) {
+    		for(int j= 0 ; j<10 ; ++j) {
+    			StdDraw.square(5+10*j,5+10*i,radiusOfShapes);
+    		}
+    	}
     }
 } 
 
